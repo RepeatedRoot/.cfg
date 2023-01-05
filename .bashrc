@@ -17,3 +17,5 @@ export NVM_DIR="$HOME/.nvm"
 export GPG_TTY=$(tty)
 . "$HOME/.cargo/env"
 alias config='/usr/bin/git --git-dir=/home/boop/.cfg/ --work-tree=/home/boop'
+
+alias get_idf='. $HOME/esp/esp-idf/export.sh'
