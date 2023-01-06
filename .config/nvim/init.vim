@@ -41,6 +41,7 @@ local coq = require('coq')
 local treesitter = require('nvim-treesitter.configs')
 local nvimtree = require('nvim-tree')
 local lualine = require('lualine')
+local autopairs = require('nvim-autopairs')
 
 -- Setup the colorscheme
 catppuccin.setup()
@@ -64,6 +65,8 @@ nvimtree.setup {
 -- Setup LSP for coq
 lsp.pyright.setup(coq.lsp_ensure_capabilities())
 lsp.rust_analyzer.setup(coq.lsp_ensure_capabilities())
+lsp.html.setup(coq.lsp_ensure_capabilities())
+lsp.cssls.setup(coq.lsp_ensure_capabilities())
 
 -- Setup for treesitter
 treesitter.setup {
@@ -77,6 +80,9 @@ treesitter.setup {
 		additional_vim_regex_highlighting = false,
 	},
 }
+
+-- Setup autopairs
+autopairs.setup()
 EOF
 
 colorscheme catppuccin
