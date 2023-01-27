@@ -1,0 +1,5 @@
+# Delete previous word
+"\e[3;5~": shell-kill-word
+
+# Delete following word
+"\C-H": shell-backward-kill-word
