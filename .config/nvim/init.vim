@@ -12,6 +12,7 @@ Plug 'windwp/nvim-autopairs'
 Plug 'neovim/nvim-lspconfig'
 Plug 'ms-jpq/coq_nvim', {'branch': 'coq'}
 Plug 'ms-jpq/coq.artifacts', {'branch': 'artifacts'}
+Plug 'ellisonleao/glow.nvim'
 
 call plug#end()
 
@@ -42,6 +43,7 @@ local treesitter = require('nvim-treesitter.configs')
 local nvimtree = require('nvim-tree')
 local lualine = require('lualine')
 local autopairs = require('nvim-autopairs')
+local glow = require('glow')
 
 -- Setup the colorscheme
 catppuccin.setup()
@@ -49,8 +51,11 @@ catppuccin.setup()
 -- Lualine setup
 lualine.setup()
 
+-- Glow setup
+glow.setup()
+
 -- nvim-tree setup
-nvimtree.setup {
+nvimtree.setup ({
 	view = {
 		side = "left",
 		width = 25,
@@ -60,8 +65,21 @@ nvimtree.setup {
 			resize_window = true,
 		},
 	},
-}
+})
 
+local function open_nvim_tree(data)
+  local directory = vim.fn.isdirectory(data.file) == 1
+
+  if not directory then
+    return
+  end
+
+  vim.cmd.cd(data.file)
+
+  require('nvim-tree.api').tree.open()
+end
+
+vim.api.nvim_create_autocmd({ "VimEnter" }, { callback = open_nvim_tree })
 -- Setup LSP for coq
 lsp.pyright.setup(coq.lsp_ensure_capabilities())
 lsp.rust_analyzer.setup(coq.lsp_ensure_capabilities())
